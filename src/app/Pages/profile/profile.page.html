@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="profile-page">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1 style="text-align: left;">Welcome, {{ user?.displayName || 'User' }}</h1>
+    <h2 style="text-align: left;">{{ user?.email }}</h2>
+    <ion-avatar>
+      <img [src]="user?.photoURL || 'assets/default-profile-picture.jpg'" alt="Profile Picture" />
+      <script>
+        console.log(user?.photoURL);
+      </script>
+      <span class="badge">NEW</span>
+    </ion-avatar>
+    <p color="dark">Need help with a New Task? Let’s set you up</p>
+    <ion-button class="edit-profile-btn" color="dark" (click)="navigateSettings()">Edit Profile</ion-button>
+    <ion-button class="edit-profile-btn" color="dark" (click)="navigateProperty()">Add Property</ion-button>
+  </div>
+
+  <!-- My Balance Section -->
+<div class="card-section" *ngIf="user?.role !== 'user'">
+  <h3 color="dark">My Balance</h3>
+  <div class="bank-card">
+    <div class="card-header">
+      <span>Available Balance</span>
+      <span *ngIf="user?.accountBalance !== undefined; else loadingBalance">
+        R{{ user?.accountBalance | number: '1.2-2' }}
+      </span>
+      <ng-template #loadingBalance>
+        <ion-spinner name="crescent"></ion-spinner>
+      </ng-template>
+    </div>
+    <h2>Top up or Withdraw</h2>
+    <ion-icon name="wallet" class="visa-icon"></ion-icon>
+  </div>
+</div>
+</ion-content>

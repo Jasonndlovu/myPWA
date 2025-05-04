@@ -1,0 +1,152 @@
+<ion-header *ngIf="!isUpcomingJob">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>View Service</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-global-background></app-global-background>
+
+  <!-- User/Cleaner Card -->
+  <div class="p-4">
+    <ion-card class="mb-4 shadow-md rounded-2xl">
+      <ion-card-header>
+        <ion-card-title class="text-lg font-semibold text-gray-800">
+          {{ role === 'service-provider' ? 'Client' : 'Cleaner' }} Info
+        </ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content class="space-y-4">
+        <div class="flex items-center gap-4">
+          <img
+            *ngIf="otherPartyInfo?.photoURL; else defaultAvatar"
+            [src]="otherPartyInfo.photoURL"
+            alt="Profile"
+            class="w-16 h-16 rounded-full border-2 border-primary"
+          />
+          <ng-template #defaultAvatar>
+            <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center text-white text-lg">
+              <ion-icon name="person-outline"></ion-icon>
+            </div>
+          </ng-template>
+    
+          <div>
+            <p class="text-sm text-gray-700">
+              <strong>Name:</strong> {{ otherPartyInfo?.displayName || 'N/A' }}
+            </p>
+            <p class="text-sm text-gray-700">
+              <strong>Email:</strong> {{ otherPartyInfo?.email || 'N/A' }}
+            </p>
+          </div>
+        </div>
+    
+        <ion-button expand="block" color="primary" class="mt-2 shadow-md" (click)="startChat(otherPartyInfo)">
+          Start Chat
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+    
+
+    <!-- Job Details Card -->
+    <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
+      <h2 class="text-center text-xl font-semibold text-gray-800">
+        Details About Your Clean
+      </h2>
+
+      <!-- Basic Job Info -->
+      <div class="text-sm text-gray-700 space-y-1">
+        <p><strong>Service:</strong> {{ jobType }}</p>
+        <p><strong>Preferred Date:</strong> {{ scheduledDate }}</p>
+        <p><strong>Offered Rate:</strong> R{{ price }}</p>
+      </div>
+
+      <div class="text-sm text-gray-700">
+        <p><strong>Location:</strong> Randpark, Randburg</p>
+      </div>
+
+      <div class="text-sm text-gray-700">
+        <p><strong>Booking Type:</strong> {{ bookingType }}</p>
+      </div>
+
+      <!-- Re-occurring Info -->
+      <div
+        *ngIf="bookingType === 'Re-occurring' && bookingFrequency"
+        class="text-sm text-red-700"
+      >
+        <p><strong>Booking frequency:</strong> {{ bookingFrequency }}</p>
+      </div>
+
+      <div
+        *ngIf="bookingType === 'Re-occurring' && recurringDate"
+        class="text-sm text-red-700"
+      >
+        <p><strong>Booking day of the month:</strong> {{ recurringDate }}th</p>
+      </div>
+
+      <div
+        *ngIf="bookingType === 'Re-occurring' && recurringDay"
+        class="text-sm text-red-700"
+      >
+        <p><strong>Every:</strong> {{ recurringDay }}</p>
+      </div>
+
+      <!-- Date and Time -->
+      <div class="text-sm text-gray-700">
+        <p><strong>Scheduled Date:</strong> {{ scheduledDateOnly }}</p>
+        <p><strong>Scheduled Time:</strong> {{ scheduledTimeOnly }}</p>
+      </div>
+
+      <!-- Extras -->
+      <div *ngIf="jobItems?.length">
+        <h3 class="text-lg font-semibold text-gray-800">Extras</h3>
+        <ul
+          class="list-disc list-inside text-sm text-gray-700 space-y-1"
+        >
+          <li *ngFor="let item of jobItems">{{ item }}</li>
+        </ul>
+      </div>
+
+      <!-- Additional Info -->
+      <div>
+        <h3 class="text-lg font-semibold text-gray-800">
+          Additional Instructions
+        </h3>
+        <p class="text-sm text-blue-700">{{ additionalInfo }}</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <!-- Action Buttons -->
+        <div class="flex flex-col md:flex-row gap-4">
+          <button
+            (click)="backtoDash()"
+            [disabled]="shouldOnlyReview"
+            class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg text-sm shadow transition"
+          >
+            Decline
+          </button>
+
+          <button
+            [disabled]="shouldOnlyReview"
+            class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-3 rounded-lg text-sm shadow transition"
+          >
+            Cancel
+          </button>
+
+          <ion-button color="success" (click)="markServiceComplete()" [disabled]="shouldOnlyReview">
+            Mark Service as Completed
+          </ion-button>
+
+          <button
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg text-sm shadow transition"
+            *ngIf="canReview"
+            (click)="openReviewModal()"
+          >
+            Add Review
+          </button>
+        </div>
+    </div>
+  </div>
+</ion-content>

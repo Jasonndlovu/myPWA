@@ -1,0 +1,49 @@
+.chat-container {
+  ion-list {
+    padding: 10px;
+  }
+
+  ion-item {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px 0;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+
+  .chat-bubble {
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 16px;
+    max-width: 75%;
+    word-wrap: break-word;
+  }
+
+  .sender {
+    align-self: flex-end;
+    justify-content: flex-end;
+    background: #007bff;
+    color: white;
+    .chat-bubble {
+      background: #007bff;
+      color: white;
+    }
+  }
+
+  .receiver {
+    align-self: flex-start;
+    justify-content: flex-start;
+    background: #f1f0f0;
+    color: black;
+    .chat-bubble {
+      background: #f1f0f0;
+      color: black;
+    }
+  }
+
+  ion-avatar {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Add User Property</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="saveUserProperty()">
+    <ion-item>
+      <ion-label position="floating">Property Name</ion-label>
+      <ion-input [(ngModel)]="name" name="propertyType" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Property Type</ion-label>
+      <ion-select [(ngModel)]="selectedPropertyType" name="propertyType" required>
+        <ion-select-option *ngFor="let type of propertyTypes" [value]="type">{{ type }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Bedrooms</ion-label>
+      <ion-select [(ngModel)]="numberOfBedrooms" name="bedrooms">
+        <ion-select-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">{{ num }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Bathrooms</ion-label>
+      <ion-select [(ngModel)]="numberOfBathrooms" name="bathrooms">
+        <ion-select-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">{{ num }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Living Rooms</ion-label>
+      <ion-select [(ngModel)]="numberOfLivingRooms" name="livingRooms">
+        <ion-select-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">{{ num }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Kitchens</ion-label>
+      <ion-select [(ngModel)]="numberOfKitchens" name="kitchens">
+        <ion-select-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">{{ num }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Garages</ion-label>
+      <ion-select [(ngModel)]="numberOfGarages" name="garages">
+        <ion-select-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">{{ num }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Floors</ion-label>
+      <ion-select [(ngModel)]="numberOfFloors" name="floors">
+        <ion-select-option *ngFor="let num of [1,2,3,4,5,6,7,8,9,10]" [value]="num">{{ num }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button color="dark" type="submit">Save Property</ion-button>
+  </form>
+</ion-content>

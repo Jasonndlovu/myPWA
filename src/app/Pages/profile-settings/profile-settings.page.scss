@@ -1,0 +1,63 @@
+// /** General Styles **/
+// :root {
+//   --ion-background-color: #fff;
+//   --ion-text-color: #000;
+// }
+
+// ion-content {
+//   --background: var(--ion-background-color);
+// }
+
+// .page-title {
+//   font-size: 1.5rem;
+//   font-weight: bold;
+//   text-align: center;
+//   margin: 20px 0;
+// }
+
+// /** Form Styling **/
+// ion-item {
+//   --background: #f8f8f8;
+//   --border-radius: 8px;
+//   --inner-padding-start: 15px;
+//   margin-bottom: 12px;
+// }
+
+// ion-input,
+// ion-select {
+//   --padding-start: 10px;
+// }
+
+// ion-button {
+//   --background: #000;
+//   --color: #fff;
+//   width: 100%;
+//   height: 50px;
+//   font-size: 1rem;
+//   font-weight: bold;
+//   border-radius: 8px;
+// }
+
+// /** Payment Page Styles **/
+// .payment-icons {
+//   display: flex;
+//   justify-content: center;
+//   gap: 10px;
+//   margin-bottom: 15px;
+// }
+
+// .payment-icons img {
+//   width: 50px;
+//   height: auto;
+// }
+
+// .expiry-cvv {
+//   display: flex;
+//   gap: 10px;
+// }
+
+// .expiry-cvv ion-item {
+//   flex: 1;
+// }
+
+ion-content{margin-right: 50px;margin-left: 50px;}

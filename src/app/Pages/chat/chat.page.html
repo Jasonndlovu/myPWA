@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ chatPartnerName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-container">
+  <app-global-background></app-global-background>
+  <ion-list *ngIf="messages$ | async as messages">
+    <ion-item *ngFor="let msg of messages" [class.sender]="msg.senderId === currentUserId" [class.receiver]="msg.senderId !== currentUserId">
+      
+      <!-- Receiver (Other Person) -->
+      <ion-avatar slot="start" *ngIf="msg.senderId !== currentUserId">
+        <img [src]="msg.senderImage" alt="Profile Picture">
+      </ion-avatar>
+
+      <div class="chat-bubble">
+        <strong *ngIf="msg.senderId !== currentUserId">{{ msg.sender }}</strong>
+        <p>{{ msg.text }}</p>
+      </div>
+
+      <!-- Sender (Current User) -->
+      <ion-avatar slot="end" *ngIf="msg.senderId === currentUserId">
+        <img [src]="currentUserImage" alt="Your Profile Picture">
+      </ion-avatar>
+      
+    </ion-item>
+  </ion-list>
+
+  <!-- Show message when chat is empty -->
+  <div *ngIf="(messages$ | async)?.length === 0" class="empty-chat">
+    <p>No messages yet. Start the conversation!</p>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input [(ngModel)]="newMessage" placeholder="Type a message"></ion-input>
+    <ion-button (click)="sendMessage()">Send</ion-button>
+  </ion-toolbar>
+</ion-footer>

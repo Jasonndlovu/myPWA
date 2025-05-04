@@ -1,0 +1,86 @@
+.toast {
+    background-color: #ff0000; /* Customize background color */
+    color: white; /* Customize text color */
+    font-weight: bold;
+  }
+
+
+  ion-button{
+    margin: 0 auto 0 auto;  /* top margin of 100px, auto left/right margin */
+
+    font-size: 0.8rem;
+    height: 40px;
+    text-align: center;
+
+
+
+    // font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 10px;
+
+    --background: #1E232C;
+    --color: White;
+    
+    --border-radius: 8px;
+    --border-color: #000;
+    --border-style: solid;
+    --border-width: 1px;
+    
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    
+    --ripple-color: rgba(255, 20, 145, 0);
+    
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
+  
+
+
+  ion-item{
+  
+    background:rgba(30, 30, 30, 0);
+  }
+
+
+  .service-type-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .property-details {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    color: #555;
+  }
+  
+  .note {
+    font-size: 12px;
+    color: green;
+  }
+  
+  .extras-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .discount {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+  }
+  
+  .price-summary p {
+    margin: 4px 0;
+  }
+  
+  hr {
+    margin: 8px 0;
+  }
+  

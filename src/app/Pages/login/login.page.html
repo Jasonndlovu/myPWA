@@ -1,0 +1,41 @@
+<!-- <ion-content class="ion-padding">
+  <ion-button expand="full" (click)="loginGoogle()">Login with Google</ion-button>
+</ion-content> -->
+
+
+<ion-content [fullscreen]="true" class="signup-page">
+  <!-- Step 2: Secure Account -->
+  <div class="signup-container">
+    <h1>Welcome back! Glad to see you, Again!</h1>
+    <ion-textarea label="Email Address" labelPlacement="floating" fill="outline" type="email" [(ngModel)]="email"></ion-textarea>
+    <ion-textarea label="Password" labelPlacement="floating" fill="outline" type="password" [(ngModel)]="password"></ion-textarea>
+    <p class="ion-justify-content-center">Forgot Password? <a routerLink="/signup">Sign Up Now</a></p>
+    
+    
+    <ion-button expand="block" (click)="login()" color="dark">Login</ion-button>
+    <p class="forgot-password">
+      <a (click)="forgotPassword()">Forgot Password?</a>
+    </p>
+    <img src="../../../../public/icons/google-logo-search-new-svgrepo-com.svg" alt="Custom Icon" />
+    <p class="or-login">Or Login with</p>
+    <div class="social-login">
+      <ion-button expand="full" (click)="loginGoogle()">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        <ion-content>
+        <img src="assets/icon/google-logo-search-new-svgrepo-com.svg" alt="Custom Icon" />
+
+        </ion-content>
+        Login with Google
+      </ion-button>
+      <ion-button expand="full">
+        <ion-icon name="logo-facebook" slot="start"></ion-icon>
+        Login with Facebook
+      </ion-button>
+      <ion-button expand="full" (click)="loginApple()">
+        <ion-icon name="logo-apple" slot="start"></ion-icon>
+        Login with Apple
+      </ion-button>
+    </div>
+    <p class="ion-justify-content-center">Don't have an account? <a routerLink="/signup">Sign Up Now</a></p>
+  </div>
+</ion-content>

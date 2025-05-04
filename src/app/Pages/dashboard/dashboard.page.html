@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Welcome to your dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="dashboard-card">
+    <div class="user-info">
+      <div class="user-avatar">
+        <img src={{user?.photoURL}} alt="" class="user-avatar">
+       </div>
+      <div class="user-details" >
+        <h3>Hey {{ user?.displayName || 'User' }}!</h3>
+        <p>Inviting you with brilliant people who are committed to meaningful work.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashContent">
+  <h2>What would you like to do today?</h2>
+  <section>
+    <h3>Business Services</h3>
+    <div class="services-container">
+      <div *ngFor="let service of businessServices" class="service-card" (click)="navigateTo(service.url)">
+        <img [src]="service.image" alt="Service Image">
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Household Services</h3> 
+    <div class="services-container">
+      <div *ngFor="let service of householdServices" class="service-card" (click)="navigateTo(service.url)">
+        <img [src]="service.image" alt="Service Image">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+  <div class="consultation-card">
+    <!-- <h4>Book a consultation</h4>
+    <p>Require business services? Set up a 30-90 min conference room call.</p>
+    <small>Only available for business services</small>
+    <ion-button>Set up a call</ion-button> -->
+
+    <h2>Your Reviews</h2>
+<ion-list class="reviewList" *ngIf="reviews.length > 0; else noReviews">
+  <ion-item *ngFor="let review of reviews">
+    <ion-label class="reviewItem">
+      <h3>Service: {{ review.serviceId }}</h3>
+      <p>Message: {{ review.message }}</p>
+      <p>⭐ {{ review.stars }} Stars</p>
+      <p>📅 {{ review.createdAt }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ng-template #noReviews>
+  <p>No reviews found.</p>
+</ng-template>
+  </div>
+</ion-content>

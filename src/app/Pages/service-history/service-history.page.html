@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Service History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Loading service history...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && error" class="ion-text-center ion-padding">
+    <ion-icon name="warning" size="large"></ion-icon>
+    <p>{{ error }}</p>
+    <ion-button fill="clear" (click)="loadServiceHistory()">
+      <ion-icon slot="start" name="refresh"></ion-icon>
+      Try Again
+    </ion-button>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !error && serviceHistory.length === 0" class="ion-text-center ion-padding">
+    <ion-icon name="time-outline" size="large"></ion-icon>
+    <p>No service history found</p>
+  </div>
+
+  <!-- History List -->
+  <ion-list *ngIf="!isLoading && !error && serviceHistory.length > 0">
+    <ion-item *ngFor="let service of serviceHistory">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ service.serviceType || 'Service' }}</ion-card-title>
+          <ion-badge [color]="service.serviceStatus === 'Completed' ? 'success' : 'warning'">
+            {{ service.serviceStatus }}
+          </ion-badge>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-label>
+                  <ion-icon name="calendar-outline" slot="start"></ion-icon>
+                  {{ formatDate(service.createdAt) }}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="12">
+                <ion-label>
+                  <ion-icon name="cash-outline" slot="start"></ion-icon>
+                  {{ service.totalCostToUser | currency:'ZAR':'symbol-narrow' }}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="service.selectedProperty?.name">
+              <ion-col size="12">
+                <ion-label>
+                  <ion-icon name="home-outline" slot="start"></ion-icon>
+                  {{ service.selectedProperty.name }}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="service.additionalInfo">
+              <ion-col size="12">
+                <ion-label>
+                  <ion-icon name="document-text-outline" slot="start"></ion-icon>
+                  {{ service.additionalInfo }}
+                </ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

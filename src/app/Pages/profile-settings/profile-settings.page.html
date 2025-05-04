@@ -1,0 +1,50 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="px-8 pt-4">
+  <div class="text-lg font-semibold mt-4 mb-1">Let’s complete your profile</div>
+  <div class="text-sm text-gray-500 mb-6">Please provide us with the following details:</div>
+
+  <form (ngSubmit)="next()" class="space-y-4">
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-input formControlName="name" placeholder="Name" class="p-2"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-input formControlName="surname" placeholder="Surname" class="p-2"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-select formControlName="gender" placeholder="Gender" class="p-2">
+        <ion-select-option value="male">Male</ion-select-option>
+        <ion-select-option value="female">Female</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-input type="date" formControlName="dob" placeholder="Date of Birth" class="p-2"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-select formControlName="expertise" placeholder="Choose a expertise" class="p-2">
+        <ion-select-option value="developer">Developer</ion-select-option>
+        <ion-select-option value="designer">Designer</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-input formControlName="address" placeholder="Physical Address" class="p-2"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="rounded-lg border border-gray-300">
+      <ion-input formControlName="idNumber" placeholder="ID Number/Passport" class="p-2"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" color="dark" class="rounded-xl text-base mt-6">Next</ion-button>
+  </form>
+</ion-content>

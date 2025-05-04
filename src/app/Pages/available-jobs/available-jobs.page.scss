@@ -1,0 +1,81 @@
+ion-badge {
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+ion-card {
+  margin-bottom: 10px;
+}
+
+
+
+.Accept {
+
+    margin: 0 auto 0 auto;  /* top margin of 100px, auto left/right margin */
+    width: 60%;
+    font-size: 0.8rem;
+    height: 10px;
+    text-align: center;
+
+
+
+    // font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 100%;
+
+    --background: #1E232C;
+    --color: White;
+    
+    --border-radius: 100px;
+    --border-color: #000;
+    --border-style: solid;
+    --border-width: 1px;
+    
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    
+    --ripple-color: deeppink;
+    
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+
+    
+}
+
+.Decline {
+
+    margin: 0 auto 0 auto;  /* top margin of 100px, auto left/right margin */
+    width: 60%;
+    font-size: 0.8rem;
+    height: 10px;
+    text-align: center;
+
+
+
+    // font-family: 'SF Pro Display';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 18px;
+
+    --background: #DADADA;
+    --color: black;
+    
+    --border-radius: 100px;
+    --border-color: #000;
+    --border-style: solid;
+    --border-width: 1px;
+    
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    
+    --ripple-color: deeppink;
+    
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+
+    
+}
+
+

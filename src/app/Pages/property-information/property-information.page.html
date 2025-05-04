@@ -1,0 +1,241 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-global-background></app-global-background>
+    <!-- Step 1: User Info -->
+    <div *ngIf="step === 1" class="p-4">
+      <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
+      <h1>Let's get you started</h1>
+      <ion-item>
+        <ion-label>Details About Your Place</ion-label>
+        <ion-button class="edit-profile-btn" color="dark" (click)="navigateProperty()">Add Property</ion-button>
+        <ion-button id="open-action-sheet">Select</ion-button>
+        <ion-action-sheet trigger="open-action-sheet" 
+          header="Select property type..."
+          [buttons]="actionSheetButtons">
+        </ion-action-sheet>
+      </ion-item>
+    </div>
+    </div>
+
+    <div *ngIf="step === 2" class="p-4">
+      <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
+        <h2 class="text-center text-xl font-semibold text-gray-800">Details About Your Clean</h2>
+    
+        <!-- Service Type Buttons -->
+        <div class="flex flex-wrap justify-between gap-2">
+          <button 
+            class="flex items-center gap-2 px-4 py-2 rounded-full border font-medium transition"
+            [ngClass]="{
+              'bg-blue-600 text-white': serviceType === 'Standard Cleaning (Indoor)',
+              'bg-gray-100 text-gray-800': serviceType !== 'Standard Cleaning (Indoor)'
+            }"
+            (click)="selectService('Standard Cleaning (Indoor)')">
+            Standard Cleaning (Indoor)
+          </button>
+    
+          <button 
+            class="flex items-center gap-2 px-4 py-2 rounded-full border font-medium transition"
+            [ngClass]="{
+              'bg-blue-600 text-white': serviceType === 'Commercial Cleaning',
+              'bg-gray-100 text-gray-800': serviceType !== 'Commercial Cleaning'
+            }"
+            (click)="selectService('Commercial Cleaning')">
+             Commercial Cleaning
+          </button>
+    
+          <button 
+            class="flex items-center gap-2 px-4 py-2 rounded-full border font-medium transition"
+            [ngClass]="{
+              'bg-blue-600 text-white': serviceType === 'Deep Cleaning',
+              'bg-gray-100 text-gray-800': serviceType !== 'Deep Cleaning'
+            }"
+            (click)="selectService('Deep Cleaning')">
+            Deep Cleaning
+          </button>
+        </div>
+    
+        <!-- Property Summary -->
+        <div class="text-sm text-gray-700">
+          <p><strong>Location:</strong> {{ selectedProperty?.location }}</p>
+          <ul class="list-disc list-inside space-y-1">
+            <li>{{ selectedProperty?.numberOfBedrooms }} Bedrooms</li>
+            <li>{{ selectedProperty?.numberOfBathrooms }} Bathrooms</li>
+            <li>{{ selectedProperty?.numberOfLivingRooms }} Living Rooms</li>
+            <li>{{ selectedProperty?.numberOfKitchens }} Kitchen</li>
+            <li>{{ selectedProperty?.numberOfGarages }} Garages</li>
+          </ul>
+        </div>
+    
+        <!-- Additional Notes -->
+        <div>
+          <textarea [(ngModel)]="additionalNotes"
+            class="w-full border rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Tell us any additional information..."></textarea>
+          <p class="text-xs text-green-700 mt-1">
+            Note to developer: This will show under Additional Instructions on the Service Agreement.
+          </p>
+        </div>
+    
+        <!-- Extras -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">Extras</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <button *ngFor="let extra of extras"
+              (click)="toggleExtra(extra)"
+              class="flex items-center gap-1 px-3 py-2 rounded-full text-sm transition border"
+              [ngClass]="{
+                'bg-blue-500 text-white': extra.selected,
+                'bg-gray-100 text-gray-700': !extra.selected
+              }">
+              <ion-icon [name]="extra.icon" *ngIf="extra.icon"></ion-icon> {{ extra.name }}
+            </button>
+          </div>
+        </div>
+    
+       <!-- Booking Toggle -->
+<div class="text-center">
+  <p class="font-semibold text-sm text-blue-600 mb-2">GET 10% DISCOUNT FOR RE-OCCURRING BOOKINGS</p>
+
+  <div class="flex justify-center space-x-4 mb-4">
+    <button (click)="bookingType = 'Once-off'"
+      class="px-4 py-2 rounded-lg text-sm font-medium"
+      [ngClass]="{
+        'bg-gray-800 text-white': bookingType === 'Once-off',
+        'bg-gray-100 text-gray-700': bookingType !== 'Once-off'
+      }">
+      Once-off
+    </button>
+    <button (click)="bookingType = 'Re-occurring'"
+      class="px-4 py-2 rounded-lg text-sm font-medium"
+      [ngClass]="{
+        'bg-gray-800 text-white': bookingType === 'Re-occurring',
+        'bg-gray-100 text-gray-700': bookingType !== 'Re-occurring'
+      }">
+      Re-occurring
+    </button>
+  </div>
+
+  <!-- If Once-off: Show full date & time picker -->
+  <div *ngIf="bookingType === 'Once-off'" class="mt-4">
+    <button 
+      class="w-full flex justify-center items-center gap-2 px-4 py-3 text-white font-semibold bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition"
+      (click)="openDateTimePicker()">
+      <ion-icon name="calendar" class="text-xl"></ion-icon>
+      Choose Date & Time
+    </button>
+    <p *ngIf="dateTimeWarning" class="text-red-500 text-xs mt-2">
+      Please select a valid date and time.
+    </p>
+    <p *ngIf="selectedDate_Time" class="text-sm text-gray-600 mt-2">
+      Selected: {{ selectedDate_Time | date:'fullDate' }} at {{ selectedDate_Time | date:'shortTime' }}
+    </p>
+  </div>
+
+  <!-- If Re-occurring: Show time only picker -->
+  <div *ngIf="bookingType === 'Re-occurring'" class="mt-4">
+    <button 
+      class="w-full flex justify-center items-center gap-2 px-4 py-3 text-white font-semibold bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition"
+      (click)="openTimeOnlyPicker()">
+      <ion-icon name="time" class="text-xl"></ion-icon>
+      Choose Time Only
+    </button>
+    <p *ngIf="selectedDate_Time" class="text-sm text-gray-600 mt-2">
+      Selected Time: {{ selectedDate_Time | date:'shortTime' }}
+    </p>
+
+    <!-- Weekly/Monthly selection -->
+    <div class="mt-6 text-center">
+      <p class="font-semibold text-sm text-gray-700 mb-2">Choose Recurrence Frequency</p>
+      <div class="flex justify-center space-x-4">
+        <button (click)="recurringOption = 'Weekly'" class="px-4 py-2 rounded-lg text-sm font-medium"
+          [ngClass]="{
+            'bg-blue-600 text-white': recurringOption === 'Weekly',
+            'bg-gray-100 text-gray-700': recurringOption !== 'Weekly'
+          }">
+          Weekly
+        </button>
+        <button (click)="recurringOption = 'Monthly'" class="px-4 py-2 rounded-lg text-sm font-medium"
+          [ngClass]="{
+            'bg-blue-600 text-white': recurringOption === 'Monthly',
+            'bg-gray-100 text-gray-700': recurringOption !== 'Monthly'
+          }">
+          Monthly
+        </button>
+      </div>
+
+      <!-- Show day selector -->
+      <div class="mt-4">
+        <label *ngIf="recurringOption === 'Weekly'" class="block text-sm text-gray-600 mb-1">Select Day of the Week</label>
+        <select *ngIf="recurringOption === 'Weekly'" [(ngModel)]="weeklyDay"
+          class="w-full border border-gray-300 rounded-lg p-2 text-sm">
+          <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
+        </select>
+
+        <label *ngIf="recurringOption === 'Monthly'" class="block text-sm text-gray-600 mt-4 mb-1">Select Day of the Month</label>
+        <input *ngIf="recurringOption === 'Monthly'" type="number" min="1" max="31" [(ngModel)]="monthlyDate"
+          class="w-full border border-gray-300 rounded-lg p-2 text-sm" placeholder="e.g. 15" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+        <!-- Pricing Breakdown -->
+        <div class="border-t pt-4 text-sm text-gray-800 space-y-1">
+          <p>Standard Cleaning (Indoor): <strong>{{ prices.standard | currency  }}</strong></p>
+          <div *ngFor="let extra of selectedExtras">
+            <p>+ {{ extra.name }} <strong>{{ extra.price | currency }}</strong></p>
+          </div>
+          <p>+ Admin Fee (5%): <strong>{{ adminFee | currency }}</strong></p>
+          <hr class="my-2">
+          <p class="text-lg font-semibold">Total Cost: {{ totalCost | currency }}</p>
+        </div>
+    
+        <!-- CTA Button -->
+        <button (click)="getCleaner()"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg text-sm shadow transition">
+          Let’s Find Your Cleaner
+        </button>
+      </div>
+    </div>
+    
+    </ion-content>
+
+    <ion-modal [isOpen]="showDateTimeModal">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="closeDateTimePicker()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>Select Date and Time</ion-title>
+            <ion-buttons slot="end">
+              <ion-button strong (click)="confirmSelection()">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+    
+        <ion-content class="ion-padding">
+          <div class="bg-white p-4 rounded-xl shadow space-y-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Choose a Date & Time</label>
+            <ion-datetime 
+              name="selectedDateTime" 
+              [(ngModel)]="selectedDate_Time"
+              [isDateEnabled]="isWeekday"
+              [min]="minDate" 
+              [max]="maxDate"
+              (ionChange)="validateTime($event)">
+            </ion-datetime>
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    

@@ -1,0 +1,92 @@
+
+ion-textarea-md-h{
+    --background: #f4f4f4; /* Background color */
+    --color: #333; /* Text color */
+    --placeholder-color: #999; /* Placeholder text color */
+    --placeholder-opacity: 1; /* Make placeholder fully visible */
+    --border-color: #6200ea; /* Border color */
+    
+  }
+  
+.ion-valid.sc-ion-textarea-md-h{
+    --highlight-color: #015EEA;
+}
+.ion-valid.sc-ion-textarea-ios-h{
+    --highlight-color: #015EEA;
+}
+.signup-page {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+
+    .signup-container {
+ 
+    margin-top: 15%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      
+  
+      h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+  
+      ion-textarea {
+        width: 80%;
+        margin-bottom: 1rem;
+        text-align: left;
+        font-size: 1rem;
+      }
+  
+      ion-button {
+        margin-top: 100px;
+        width: 80%;
+        font-size: 0.8rem;
+        height: 50px;
+       // margin-top: 1.5rem;
+      }
+  
+      .or-login {
+        margin: 1rem 0;
+        font-size: 0.9rem;
+      }
+  
+      .social-login {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+  
+        ion-icon {
+          font-size: 2rem;
+        }
+      }
+  
+      ion-checkbox {
+        display: flex;
+        align-items: center;
+        margin: 1rem 0;
+  
+        label {
+          margin-left: 0.5rem;
+          font-size: 0.9rem;
+        }
+      }
+  
+      p {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+  
+        a {
+          text-decoration: none;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  

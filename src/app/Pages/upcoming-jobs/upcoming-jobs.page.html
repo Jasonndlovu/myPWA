@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>upcoming-jobs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="p-4">
+  <app-global-background></app-global-background>
+  
+  <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
+    <div *ngIf="jobs.length > 0; else noJobs">
+      <ion-card *ngFor="let job of jobs" class="mb-4 shadow-md rounded-xl border border-gray-200">
+        <ion-card-header class="bg-gray-100 px-4 py-2 rounded-t-xl">
+          <ion-card-title class="text-lg font-bold text-gray-800">
+            🧽 {{ job.serviceType }} Cleaning
+          </ion-card-title>
+          <p class="text-sm text-gray-500">{{ job.bookingType }}</p>
+        </ion-card-header>
+      
+        <ion-card-content class="space-y-2 ">
+          <p><strong>📅 Date:</strong> {{ job.selectedTimeAndDate | date: 'mediumDate' }}</p>
+          <p><strong>🕙 Time:</strong> {{ job.selectedTimeAndDate | date: 'shortTime' }}</p>
+          <p><strong>💰 Total:</strong> R{{ job.totalCostToUser }}</p>
+          <p *ngIf="job.selectedExtras"><strong>✨ Extras:</strong> {{ job.selectedExtras }}</p>
+      
+          <!-- Status -->
+          <div *ngIf="job.cleanerID && job.cleanerID !== 'null'" class="text-green-600 font-medium">
+            ✅ This job has been accepted by a service provider.
+          </div>
+          <div *ngIf="!job.cleanerID || job.cleanerID === 'null'" class="text-yellow-600 font-medium">
+            ⏳ This job is still pending and waiting for a service provider to accept.
+          </div>
+      
+          <!-- View Button -->
+          <div class="flex justify-center mt-4">
+          <ion-button
+            color="dark"
+            [disabled]="!job.cleanerID || job.cleanerID === 'null'"
+            (click)="goToJob(job)"
+          >
+            View Details
+          </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>      
+    </div>
+  </div>
+
+  <ng-template #noJobs>
+    <p class="text-center text-white-500 mt-8">You have no upcoming jobs.</p>
+  </ng-template>
+</ion-content>

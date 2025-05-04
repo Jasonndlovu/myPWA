@@ -1,0 +1,19 @@
+<ion-content [fullscreen]="true" class="onboarding">
+   <!-- Background with Phone Image -->
+   <div class="onboarding-image">
+    <img src="assets/phone-outline.svg" alt="Phone Outline" />
+  </div>
+
+  <!-- Content Section -->
+  <div class="onboarding-content">
+    <h1>Blue Novelty</h1>
+    <p>Welcome to the Worlds Best Project Marketplace. Your one-stop solution for your cleaning needs. Booked trusted and experienced cleaners with just a few steps.</p>
+    <!-- Buttons -->
+    <ion-button class="primary-button" (click)="navigateRegistration()" color="dark">Get started</ion-button>
+    <ion-button fill="outline" class="secondary-button" (click)="navigateToLogin()" color="dark">Sign in</ion-button>
+    <!-- Link -->
+    <ion-text>
+      <a href="#" class="admin-link">Sign in as Admin</a>
+    </ion-text>
+  </div>
+</ion-content>

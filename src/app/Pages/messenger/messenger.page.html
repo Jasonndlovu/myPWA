@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Messenger</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<app-global-background></app-global-background>
+<ion-list *ngIf="chatUsers.length > 0">
+  <ion-list-header class="ion-padding-bottom" color="Dark">
+    RECENT CHATS
+  </ion-list-header>
+
+  <ion-item *ngFor="let chat of chatList" (click)="openChat(chat)" [detail]="true" class="bg-gray-800 rounded-lg my-2 p-4">
+    <ion-avatar slot="start">
+      <img [src]="chat?.otherUser?.photoURL || 'assets/default-avatar.png'" />
+    </ion-avatar>
+    <ion-label class="text-white">
+      <h2 class="font-semibold">{{ chat?.otherUser?.displayName }}</h2>
+      <div class="flex justify-between items-center">
+        <p class="text-sm text-gray-400 truncate" 
+           [ngClass]="{'text-blue-400': chat?.lastMessage && chat?.senderId !== userID}">
+          {{ chat?.lastMessage || 'No message' }}
+        </p>
+        <span class="text-xs text-gray-500">
+          {{ chat?.timestamp ? (chat?.timestamp | date: 'shortTime') : '' }}
+        </span>
+      </div>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+
+<ion-text *ngIf="chatUsers.length === 0" class="ion-padding text-center text-gray-500">
+  No chats yet. Start a conversation!
+</ion-text>
+

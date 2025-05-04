@@ -35,3 +35,347 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+
+/* global.scss */
+
+
+  
+ion-textarea-md-h{
+  --background: #f4f4f4; /* Background color */
+  --color: #333; /* Text color */
+  --placeholder-color: #999; /* Placeholder text color */
+  --placeholder-opacity: 1; /* Make placeholder fully visible */
+  --border-color: #6200ea; /* Border color */
+}
+
+.ion-valid.sc-ion-textarea-md-h{
+  --highlight-color: #015EEA;
+}
+.ion-valid.sc-ion-textarea-ios-h{
+  --highlight-color: #015EEA;
+}
+
+
+  ion-textarea {
+    width: 80%;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    // background-color: adjust-color($color: #5f5f5f1c);
+  }
+
+  ion-button {
+    --border-radius: 15px;// Adjust for desired roundness (e.g., 50px = pill shape)
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 80%;
+    font-size: 1rem;
+    height: 55px;
+    margin-top: 1.5rem;
+  }
+  .landing-container {
+    text-align: center;
+
+  }
+  .onboarding {
+    --background: linear-gradient(to bottom, #1e90ff, #00c6ff);
+    display: flex;
+    // flex-direction: column;
+    text-align: center;
+    .onboarding-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+      img {
+        max-height: 100%;
+        max-width: 80%;
+      }
+    }
+  
+    .onboarding-content {
+      background: #ffffff;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      padding: 24px;
+      height: 50%;
+      h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        color:black
+      }
+  
+      p {
+        font-size: 0.9rem;
+        color: #666;
+        text-align: center;
+        margin: 16px 0;
+      }
+      .admin-link {
+        display: block;
+        text-align: center;
+        color: #1e90ff;
+        margin-top: 12px;
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+      // Dark mode override
+  @media (prefers-color-scheme: dark) {
+    background: #000000; // Black background
+    h1 {
+      color: white; // White text for dark mode
+    }
+    p {
+      color: #aaa; // Lighter gray for readability
+    }
+  }
+    }
+  }
+  
+
+
+
+
+  // This if for the dashboard 
+  .dashboard-card{
+    margin-top: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
+    --border-radius: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    // display: flex;
+    // align-items: center;
+    // background-color: red;
+     background: #000;
+    .user-details{
+    text-align: right;
+      h3{
+        font-size: 1.5rem;
+      }
+      p{
+        font-size: 1rem;
+      }
+    }
+   // Dark mode override
+   @media (prefers-color-scheme: dark) {
+    background: rgba(255, 253, 253, 0.082); // Black background
+    h3 {
+      color: white; // White text for dark mode
+    }
+    p {
+      color: #aaa; // Lighter gray for readability
+    }
+  }
+
+  // Light mode override
+  @media (prefers-color-scheme: light) {
+    background: #000;
+     h3 {
+         color: white; // White text for dark mode
+     }
+     p {
+         color: #aaa; // Lighter gray for readability
+     }
+  }
+    
+  }
+
+
+  .dashContent {
+    
+    // background-color: #f1f1f1;
+    h2{
+      margin: 5%;
+      font-weight: bold;
+      // margin: 15px 0;
+      font-size: 1.3rem;
+    }
+    section {
+      border-radius: 10px;
+
+      h3{
+         margin-left: 5%;
+        // margin-left: 20%;s //this should be for pc
+      }
+      
+      .services-container {
+        display: flex; // Add this
+        justify-content: center; // Horizontal centering
+        align-items: center;
+        // flex-direction: column; 
+      }
+    }
+  }
+
+
+  .consultation-card {
+    background: #000;
+    color: #fff;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+
+    h2 {
+      font-weight: bold;
+      margin: 15px 0;
+      font-size: 1.3rem;
+    }
+    .reviewList{
+      border-radius: 10px;
+    }
+    .reviewItem{
+      border-radius: 10px;
+     }
+   // Dark mode override
+  @media (prefers-color-scheme: dark) {
+    background: rgba(255, 253, 253, 0.082); // Black background
+    h3 {
+      color: white; // White text for dark mode
+    }
+    p {
+      color: #aaa; // Lighter gray for readability
+    }
+  }
+
+  // Light mode override
+  @media (prefers-color-scheme: light) {
+    background: #000;
+     h3 {
+         color: black; // White text for dark mode
+     }
+     p {
+         color: black; // White text for dark mode
+     }
+  }
+  }
+  
+
+  //select a property section
+
+  .Property-container{
+    background-image: url('assets/icon/LogoWhite.svg');
+    background-repeat: no-repeat;
+    background-position: center; // Centers the image
+    background-size: contain; // or 'cover' depending on your needs
+    
+    // background-color: #00c6ff;
+    // If you need dimensions
+    // width: 24px;
+    // height: 24px;
+    // ion-item{
+    //   margin-top: 50%;
+    //   margin-bottom: 50%;
+    // }
+    ion-list{
+      background-color: transparent;
+    }
+
+    /* Remove default item styling */
+ion-item.pill-item {
+  --inner-padding-end: 0;
+  --padding-start: 0;
+  --inner-border-width: 0;
+  margin-bottom: 8px;
+  
+  /* Pill shape */
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  
+  /* Transition for smooth color change */
+  transition: all 0.3s ease;
+  
+  /* Checkbox styling */
+  ion-checkbox {
+    margin-right: 16px;
+    --size: 20px;
+  }
+  
+  /* Selected state */
+  &.selected {
+    background: var(--ion-color-primary);
+    border-color: var(--ion-color-primary);
+    // color: white;
+    
+    ion-checkbox {
+      // --checkbox-background-checked: white;
+      --border-color-checked: white;
+      // --checkmark-color: var(--ion-color-primary);
+    }
+  }
+  
+  /* Content alignment */
+  ion-label {
+    margin: 12px 0;
+  }
+  
+  ion-icon {
+    margin-left: 16px;
+    color: inherit; /* Makes icon change color with parent */
+  }
+}/* Remove default item styling */
+ion-item.pill-item {
+  --inner-padding-end: 0;
+  --padding-start: 0;
+  --inner-border-width: 0;
+  margin-bottom: 8px;
+  
+  /* Pill shape */
+  border-radius: 50px;
+  border: 1px solid #ddd;
+
+  
+  /* Transition for smooth color change */
+  transition: all 0.3s ease;
+  
+  /* Checkbox styling */
+  ion-checkbox {
+    margin-right: 16px;
+    --size: 20px;
+  }
+  
+  /* Selected state */
+  &.selected {
+    background: var(--ion-color-primary);
+    border-color: var(--ion-color-primary);
+    // color: white;
+    
+    ion-checkbox {
+      // --checkbox-background-checked: white;
+      --border-color-checked: white;
+      // --checkmark-color: var(--ion-color-primary);
+    }
+  }
+  
+  /* Content alignment */
+  ion-label {
+    margin: 12px 0;
+  }
+  
+  ion-icon {
+    margin-left: 16px;
+    color: inherit; /* Makes icon change color with parent */
+  }
+
+   /* Visible checkbox in selected state */
+   .layered-checkbox {
+    --opacity: 1;
+    --checkbox-background-checked: white;
+    --border-color-checked: white;
+    --checkmark-color: var(--ion-color-primary);
+  }
+}
+
+  }//LogoWhite.svg

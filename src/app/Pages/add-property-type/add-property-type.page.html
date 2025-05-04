@@ -1,0 +1,33 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Add Property Type</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Property Name</ion-label>
+      <ion-input [(ngModel)]="propertyName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea [(ngModel)]="propertyDescription"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select [(ngModel)]="selectedCategory">
+        <ion-select-option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button color="dark" (click)="addPropertyType()">Add Property Type</ion-button>
+  </ion-list>
+</ion-content>

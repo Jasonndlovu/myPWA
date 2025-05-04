@@ -1,0 +1,44 @@
+
+
+<ion-content [fullscreen]="true" class="signup-page">
+  <!-- Step 1: User Info -->
+  <div *ngIf="step === 1" class="signup-container">
+  
+    <h1>Let's get you started</h1>
+    <ion-textarea label="Name" labelPlacement="floating" fill="outline" [(ngModel)]="name"></ion-textarea>
+    <ion-textarea label="Surname" labelPlacement="floating" fill="outline" [(ngModel)]="surname"></ion-textarea>
+    <ion-textarea label="Phone Number" labelPlacement="floating" fill="outline" [(ngModel)]="phone"></ion-textarea>
+
+    <ion-button expand="block" (click)="nextStep()" color="dark">Next</ion-button>
+    <p class="or-login">Or Login with</p>
+    <div class="social-login">
+      <ion-icon name="logo-facebook"></ion-icon>
+      <ion-icon name="logo-google"></ion-icon>
+      <ion-icon name="logo-apple"></ion-icon>
+    </div>
+    <p>Already have an account? <a routerLink="/login">Login Now</a></p>
+  </div>
+
+  <!-- Step 2: Secure Account -->
+  <div *ngIf="step === 2" class="signup-container">
+    <h1>Secure your account</h1>
+    <ion-textarea label="Email Address" labelPlacement="floating" fill="outline" [(ngModel)]="email"></ion-textarea>
+    <ion-textarea label="Password" labelPlacement="floating" fill="outline" [(ngModel)]="password"></ion-textarea>
+    <ion-textarea label="Confirm Password" labelPlacement="floating" fill="outline" [(ngModel)]="confirmPassword"></ion-textarea>
+    
+    
+    <ion-checkbox [(ngModel)]="termsAccepted"><label>I accept the <a href="#">terms and conditions</a></label></ion-checkbox>
+    
+    
+    <ion-button expand="block" (click)="register()">Agree and Register</ion-button>
+    <p class="or-login">Or Login with</p>
+    <div class="social-login">
+      <ion-icon name="logo-facebook"></ion-icon>
+      <ion-icon name="logo-google"></ion-icon>
+      <ion-icon name="logo-apple"></ion-icon>
+    </div>
+    <p class="ion-justify-content-center">Already have an account? <a routerLink="/login">Login Now</a></p>
+  </div>
+</ion-content>
+
+

@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>acceptService</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content [fullscreen]="true">
+    <app-global-background></app-global-background>
+    <!-- Step 1: User Info -->
+    <div *ngIf="step === 1" class="p-4">
+      <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Note:</ion-card-title>
+              <ion-card-subtitle>Service agreement</ion-card-subtitle>
+            </ion-card-header>
+          
+            <ion-card-content>
+              Once you “Accept” this booking
+    request, you will be scheduled for
+     the clean. If you cannot make it, 
+    “Decline.” If you accept and then 
+    can’t make it, when you are 
+    scheduled, then go to your
+     profile, click on “Upcoming Clean” 
+    and on “I Cannot Make It.” Make
+    sure to notify us atleast 12 Hours
+    before your clean, otherwise 
+    penalties will be enforced.
+    
+    Do not be late. Do not miss
+      a spot. Respect your client and we wish you luck.
+            </ion-card-content>
+          
+            <ion-button fill="clear" (click)="nextStep()">Continue</ion-button>
+            <!-- <ion-button fill="clear">Action 2</ion-button> -->
+          </ion-card>
+        </div>
+    </div>
+
+
+    <div *ngIf="step === 2" class="p-4">
+      <div class="bg-white rounded-2xl shadow-md p-6 space-y-6">
+        <h2 class="text-center text-xl font-semibold text-gray-800">Details About Your Clean</h2>
+      
+        <!-- Service Type -->
+        <div class="text-sm text-gray-700 space-y-1">
+          <p><strong>Client Name:</strong> {{ userName }}</p>
+          <p><strong>Service:</strong> {{ jobType }}</p>
+          <p><strong>Preferred Date:</strong> {{ scheduledDate }}</p>
+          <p><strong>Offered Rate:</strong> R{{ price }}</p>
+        </div>
+      
+        <!-- Placeholder for location -->
+        <div class="text-sm text-gray-700">
+          <p><strong>Location:</strong> {{ 'Randpark, Randburg' }}</p> <!-- Replace with dynamic value later -->
+        </div>
+      
+        <!-- Placeholder for booking type -->
+        <div class="text-sm text-gray-700">
+          <p><strong>Booking Type:</strong> {{ bookingType }}</p> <!-- Add dynamic bookingType later -->
+        </div>
+
+
+
+        <!-- Placeholder for booking frequency -->
+        <div *ngIf="bookingType === 'Re-occurring' && bookingFrequency" class="text-sm text-red-700">
+          <p><strong>Booking frequency:</strong> {{ bookingFrequency }}</p> <!-- Add dynamic bookingFrequency later -->
+        </div>
+
+        <!-- Placeholder for booking Day of the month or day of the week -->
+        <!-- Show only if booking is recurring and a recurringDate is available -->
+        <div *ngIf="bookingType === 'Re-occurring' && recurringDate" class="text-sm text-red-700">
+          <p><strong>Booking day of the month:</strong> {{ recurringDate }}th</p> 
+        </div>
+
+         <!-- Placeholder for booking Day of the month or day of the week -->
+         <div *ngIf="bookingType === 'Re-occurring' && recurringDay" class="text-sm text-red-700">
+            <p><strong>Every:</strong> {{ recurringDay }}</p> 
+         </div>
+      
+        <!-- Placeholder for time -->
+        <div class="text-sm text-gray-700">
+          <p><strong>Scheduled Date:</strong> {{ scheduledDateOnly }}</p>
+          <p><strong>Scheduled Time:</strong> {{ scheduledTimeOnly }}</p><!-- Add dynamic time if needed -->
+        </div>
+      
+        <!-- Extras from jobItems -->
+  <div *ngIf="jobItems?.length">
+    <h3 class="text-lg font-semibold text-gray-800">Extras</h3>
+    <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+      <li *ngFor="let item of jobItems">{{ item }}</li>
+    </ul>
+  </div>
+      
+        <!-- Additional Instructions -->
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800">Additional Instructions</h3>
+          <p class="text-sm text-blue-700">
+            {{ additionalInfo }}
+          </p>
+        </div>
+      
+        <!-- CTA Buttons -->
+        <div class="flex gap-4">
+          <button (click)="confirmAcceptJob()"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-lg text-sm shadow transition">
+            Accept
+          </button>
+          <button 
+          (click)="backtoDash()"
+            class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg text-sm shadow transition">
+            Decline
+          </button>
+        </div>
+      </div>
+      
+    </div>
+    
+    
+    
+</ion-content>

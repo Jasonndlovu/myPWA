@@ -1,0 +1,132 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>acceptJob</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <!-- Step 1: User Info -->
+    <div *ngIf="step === 1" class="signup-container">
+    
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Note:</ion-card-title>
+          <ion-card-subtitle>Service agreement</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+          Once you “Accept” this booking
+request, you will be scheduled for
+ the clean. If you cannot make it, 
+“Decline.” If you accept and then 
+can’t make it, when you are 
+scheduled, then go to your
+ profile, click on “Upcoming Clean” 
+and on “I Cannot Make It.” Make
+sure to notify us atleast 12 Hours
+before your clean, otherwise 
+penalties will be enforced.
+
+Do not be late. Do not miss
+  a spot. Respect your client and we wish you luck.
+        </ion-card-content>
+      
+        <ion-button fill="clear" (click)="nextStep()">Continue</ion-button>
+        <!-- <ion-button fill="clear">Action 2</ion-button> -->
+      </ion-card>
+    </div>
+  
+    <!-- Step 2: Secure Account -->
+    <div *ngIf="step === 2" class="ServiceDetail-container">
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label>Service Details</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>Client name</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">Daniel Wellington</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Location</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">Randpark, Randburg</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Service</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">Cleaning Service</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Once-off or reocurring</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">One-Time</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Time</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">07:00</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Preferred day</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">Monday</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Start date</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">21 January 2025</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Offered rate</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">R500.00</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Extra Tasks</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">Ironing
+              Laundry 
+              Inside Cabinets</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Additional Instructions</ion-col>
+          <ion-col size="auto">
+            <div style="width: 150px">Whatever writing reflects here is what the client filled in the property info page</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      
+      <ion-button expand="block" (click)="register()" class="Accept">Accept</ion-button>
+      <ion-button expand="block" (click)="register()" class="Decline">Decline</ion-button>
+    </div>
+
+</ion-content>
