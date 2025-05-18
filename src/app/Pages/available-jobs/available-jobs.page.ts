@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './../../../services/auth.service'// Adjust the path as needed
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonBadge, IonButtons, IonBackButton, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonRow, IonCol, IonModal } from '@ionic/angular/standalone';
 import { AvailableJobsService, requestedService } from 'src/services/available-jobs.service';
-import { DatePipe } from '@angular/common';  // Import DatePipe
 import { User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -14,7 +13,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./available-jobs.page.scss'],
   standalone: true,
   imports: [IonModal, IonCol,IonRow, IonButton, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonList, IonBackButton, IonButtons, IonBadge, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
-  providers: [DatePipe]  // Provide DatePipe here
 })
 export class AvailableJobsPage implements OnInit {
   // jobs = [
@@ -31,15 +29,11 @@ export class AvailableJobsPage implements OnInit {
   selectedJob: requestedService | undefined;
 
 
-  constructor(private availableJobsService: AvailableJobsService,private datePipe: DatePipe, private authService: AuthService,private router: Router) { }
+  constructor(private availableJobsService: AvailableJobsService, private authService: AuthService,private router: Router) { }
 
   ngOnInit() {
     this.fetchUserDetails();
     this.getAvailableJobs();  // Fetch available jobs on component initialization
-  }
-  // Function to format the date
-  formatScheduledDate(date: Date | string): string {
-    return this.datePipe.transform(date, 'HH:mm yyyy-MM-dd') || '';
   }
 
   // Fetch the available jobs by calling the service method

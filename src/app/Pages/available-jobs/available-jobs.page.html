@@ -22,7 +22,7 @@
       <ion-card-content>
         <p>Client: {{ userNames[job.userId] || 'Unknown' }}</p>  <!-- Display the user's name -->
         <p>Extras: {{ job.selectedExtras }}</p>
-        <p>Scheduled for: {{ formatScheduledDate(job.selectedTimeAndDate) }}</p>  <!-- Formatted date -->
+        <!-- <p>Scheduled for: {{ formatScheduledDate(job.selectedTimeAndDate) }}</p>   -->
         <ion-row>
           <ion-col>
             <ion-button (click)="acceptJob(job, user)" class="Accept">Accept</ion-button>
@@ -59,7 +59,7 @@
             </ion-card-header>
             <ion-card-content>
               <p><strong>Extras:</strong> {{ selectedJob.selectedExtras }}</p>
-              <p><strong>Scheduled Time:</strong> {{ formatScheduledDate(selectedJob.selectedTimeAndDate) }}</p>
+              <!-- <p><strong>Scheduled Time:</strong> {{ formatScheduledDate(selectedJob.selectedTimeAndDate) }}</p> -->
               <p><strong>Status:</strong> {{ selectedJob.isAvailable ? 'Available' : 'Assigned' }}</p>
               <p><strong>Created At:</strong> {{ selectedJob.createdAt }}</p>
             </ion-card-content>

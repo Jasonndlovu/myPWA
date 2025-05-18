@@ -54,7 +54,10 @@
         <div class="text-sm text-gray-700 space-y-1">
           <p><strong>Client Name:</strong> {{ userName }}</p>
           <p><strong>Service:</strong> {{ jobType }}</p>
-          <p><strong>Preferred Date:</strong> {{ scheduledDate }}</p>
+          <p><strong>Preferred Date:</strong></p>
+          <ul>
+            <li *ngFor="let date of scheduledDates">{{ date | date: 'fullDate' }}</li>
+          </ul>
           <p><strong>Offered Rate:</strong> R{{ price }}</p>
         </div>
       

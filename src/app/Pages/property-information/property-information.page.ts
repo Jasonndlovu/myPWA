@@ -10,13 +10,14 @@ import { Auth, User } from '@angular/fire/auth';  // ✅ Import Auth
 import { Observable } from 'rxjs';
 import { GlobalBackgroundComponent } from "../../components/global-background/global-background.component";
 import { Router } from '@angular/router';
+import { DateTimePickerComponent } from "../../components/date-time-picker/date-time-picker.component";
 
 @Component({
   selector: 'app-property-information',
   templateUrl: './property-information.page.html',
   styleUrls: ['./property-information.page.scss'],
   standalone: true,
-  imports: [IonChip, IonSegmentButton, IonDatetime, IonModal, IonActionSheet, IonLabel, IonMenuButton, IonItem, IonList, IonTextarea, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonIcon, IonButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GlobalBackgroundComponent]
+  imports: [IonChip, IonSegmentButton, IonDatetime, IonModal, IonActionSheet, IonLabel, IonMenuButton, IonItem, IonList, IonTextarea, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonIcon, IonButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GlobalBackgroundComponent, DateTimePickerComponent]
 })
 export class PropertyInformationPage implements OnInit {
   step: number = 1; // Controls step navigation
@@ -39,7 +40,8 @@ export class PropertyInformationPage implements OnInit {
   restrictedEndTime: string = '17:00';
 
   serviceType: string = 'Standard';
-bookingType: string = 'Re-occurring';
+  bookingType: 'once' | 'recurring' | null = null;
+
 additionalNotes: string = '';
 
 recurringOption: 'Weekly' | 'Monthly' | null = null;
@@ -70,7 +72,7 @@ daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 // }
 
 
-  constructor(private toastController: ToastController,private serviceRequestService: ServiceRequestService,private auth: Auth,private router: Router, private propertyService: PropertyService) // ✅ Inject Firebase Auth) 
+  constructor(private modalController: ModalController,private toastController: ToastController,private serviceRequestService: ServiceRequestService,private auth: Auth,private router: Router, private propertyService: PropertyService) // ✅ Inject Firebase Auth) 
   {
     let today = new Date();
     let min = new Date();
@@ -111,10 +113,34 @@ daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     return utcDay !== 0 && utcDay !== 6; // Exclude Sunday (0) and Saturday (6)
   };
 
-  openDateTimePicker() {
-    this.showDateTimeModal = true;
-    this.dateTimeWarning = false;
+  async openDateTimePicker() {
+  const modal = await this.modalController.create({
+    component: DateTimePickerComponent,
+    componentProps: {},
+  });
+  await modal.present();
+
+  const { data } = await modal.onWillDismiss();
+
+  if (data && data.selectedDates?.length > 0 && data.selectedTime) {
+    // Combine date and time into full ISO string(s)
+    const combinedDateTimes = data.selectedDates.map((dateStr: string) => {
+      const date = new Date(dateStr);
+      date.setHours(parseInt(data.selectedTime.hour), parseInt(data.selectedTime.minute));
+      return date.toISOString();
+    });
+    this.bookingType = data.type; // ✅ Save the booking type
+
+    this.selectedDate_Time = data.type === 'once'
+      ? combinedDateTimes[0]
+      : combinedDateTimes;
+
+    this.confirmSelection(); // Continue with validation
+  } else {
+    this.showToast('Please select a valid date and time!');
   }
+}
+
 
   closeDateTimePicker() {
     this.showDateTimeModal = false;
@@ -130,24 +156,36 @@ daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     toast.present();
   }
 
-  confirmSelection() {
-    if (this.selectedDate_Time != null) {
-      const selectedDateTime = new Date(this.selectedDate_Time);
-      const selectedTime = selectedDateTime.toTimeString().split(' ')[0]; // Get the time part of the datetime
-
-      // Check if the selected time is within the allowed range
-      if (selectedTime < this.restrictedStartTime || selectedTime > this.restrictedEndTime) {
-        this.showToast('Selected time is outside the allowed range! 09:00 - 17:00');
-        this.isTimeValid = false;  // Set the time validity to false
-      } else {
-        this.isTimeValid = true;  // Time is valid
-        this.showDateTimeModal = false;
-        this.dateTimeWarning = true;
-      }
-    } else {
-      this.showToast('Please select a valid date and time! 09:00 - 17:00');
-    }
+confirmSelection() {
+  if (!this.selectedDate_Time) {
+    this.showToast('Please select a valid date and time! 09:00 - 17:00');
+    return;
   }
+
+  // Handle recurring (array of dates)
+  const datesToCheck = Array.isArray(this.selectedDate_Time)
+    ? this.selectedDate_Time
+    : [this.selectedDate_Time];
+
+  const allTimesValid = datesToCheck.every((dt) => {
+    const time = new Date(dt).toTimeString().split(' ')[0];
+    return time >= this.restrictedStartTime && time <= this.restrictedEndTime;
+  });
+
+  if (!allTimesValid) {
+    this.showToast('One or more selected times are outside the allowed range! 09:00 - 17:00');
+    this.isTimeValid = false;
+    return;
+  }
+
+  this.isTimeValid = true;
+  this.showDateTimeModal = false;
+  this.dateTimeWarning = true;
+
+  this.getCleaner(); // Proceed with your form submission
+}
+
+
 
   onCheckboxChange(extra: any) {
     extra.selected = !extra.selected; // Toggle selection state
@@ -160,6 +198,12 @@ daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   
 
   async getCleaner() {
+
+    if (!this.selectedDate_Time) {
+      this.showToast('Please select a date and time first.');
+      return;
+    }
+
 
     const selectedExtras = this.extras
       .filter(extra => extra.selected)
@@ -178,9 +222,9 @@ daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         totalCostToUser: this.totalCost,
         adminFee: this.adminFee,
         bookingType:this.bookingType,
-        recurringOption: this.bookingType === 'Re-occurring' ? this.recurringOption : null,
-        recurringDay: this.bookingType === 'Re-occurring' && this.recurringOption === 'Weekly' ? this.weeklyDay : null,
-        recurringDate: this.bookingType === 'Re-occurring' && this.recurringOption === 'Monthly' ? this.monthlyDate : null,
+        recurringOption: this.bookingType === 'recurring' ? this.recurringOption : null,
+        recurringDay: this.bookingType === 'recurring' && this.recurringOption === 'Weekly' ? this.weeklyDay : null,
+        recurringDate: this.bookingType === 'recurring' && this.recurringOption === 'Monthly' ? this.monthlyDate : null,
         createdAt: new Date(),
       });
       const toast = await this.toastController.create({
@@ -197,7 +241,7 @@ this.selectedDate_Time = null;
 this.additionalNotes = '';
 this.extras.forEach(extra => extra.selected = false);  // Deselect all extras
       // Navigate back to the dashboard
-    this.router.navigate(['/dashboard']);  // Adjust the route if needed
+    this.router.navigate(['/find-cleaner'], { queryParams: { serviceID: docId } });
     } catch (error) {
       console.error("Error creating service request:", error);
     }

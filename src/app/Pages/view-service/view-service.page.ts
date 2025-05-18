@@ -41,7 +41,9 @@ export class ViewtServicePage implements OnInit {
   cleanerConfirmed!:boolean;
   // Add a flag to indicate if it's an upcoming job or not
   isUpcomingJob: boolean = false;
-
+  checkedItems: boolean[] = [];
+  canMarkComplete: boolean = false;
+  scheduledDates: string[] = [];
 
   job!: requestedService;
   otherPartyInfo: any;
@@ -67,7 +69,12 @@ export class ViewtServicePage implements OnInit {
       this.price = this.job.totalCostToUser;
       this.additionalInfo = this.job.additionalInfo;
       this.bookingType = this.job.bookingType;
-      this.scheduledDate = this.job.selectedTimeAndDate;
+      this.scheduledDates = Array.isArray(this.job.selectedTimeAndDate)
+  ? this.job.selectedTimeAndDate
+  : this.job.selectedTimeAndDate
+    ? [this.job.selectedTimeAndDate]
+    : [];
+
       this.userConfirmed = this.job.userConfirmed;
       this.cleanerConfirmed = this.job?.cleanerConfirmed;
       this.bookingFrequency = this.job.recurringOption || 'None';
@@ -77,6 +84,14 @@ export class ViewtServicePage implements OnInit {
       const extrasRaw = this.job.selectedExtras as string;
     this.jobItems = extrasRaw ? extrasRaw.split(',').map(item => item.trim()) : [];
 
+      // Set the first scheduled date if available
+      if (this.scheduledDates.length > 0) {
+        this.scheduledDate = this.scheduledDates[0];
+
+        const [datePart, timePart] = this.scheduledDate.split('T');
+        this.scheduledDateOnly = datePart;
+        this.scheduledTimeOnly = timePart?.slice(0, 5);
+      }
 
       if (this.scheduledDate) {
         const [datePart, timePart] = this.scheduledDate.split('T');
@@ -93,6 +108,7 @@ export class ViewtServicePage implements OnInit {
   }
 
   ngOnInit() {
+    this.checkedItems = this.jobItems.map(() => false);
 
       // move this to the splash screen so that it checks first if there is a user or not
       this.auth.onAuthStateChanged(async user => {
@@ -206,5 +222,10 @@ export class ViewtServicePage implements OnInit {
       // You might want to refresh the view or show a success message here
     }
   }
+
+  checkCompletion() {
+  this.canMarkComplete = this.checkedItems.every(item => item === true);
+}
+
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard ,IonCardHeader, IonCardContent, IonCardTitle, IonButton} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard ,IonCardHeader, IonCardContent, IonCardTitle, IonButton, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 
 import { Firestore, collection, query, where, getDocs, doc, getDoc } from '@angular/fire/firestore';
 import { Auth } from '@angular/fire/auth';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './upcoming-jobs.page.html',
   styleUrls: ['./upcoming-jobs.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GlobalBackgroundComponent,IonButton,IonCard,IonCardTitle ,IonCardHeader, IonCardContent],
+  imports: [IonBackButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, GlobalBackgroundComponent,IonButton,IonCard,IonCardTitle ,IonCardHeader, IonCardContent],
 })
 export class UpcomingJobsPage implements OnInit {
   private firestore: Firestore = inject(Firestore);

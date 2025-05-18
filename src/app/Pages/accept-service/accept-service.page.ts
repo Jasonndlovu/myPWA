@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle,IonMenuButton, IonToolbar, IonButtons, IonItem, IonActionSheet, IonIcon, IonLabel, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle,IonMenuButton, IonToolbar, IonButtons, IonItem, IonActionSheet, IonIcon, IonLabel, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonList } from '@ionic/angular/standalone';
 import { GlobalBackgroundComponent } from "../../components/global-background/global-background.component";
 import { Router } from '@angular/router';
 import { AvailableJobsService } from 'src/services/available-jobs.service';
@@ -13,7 +13,7 @@ import { User } from 'firebase/auth';
   templateUrl: './accept-service.page.html',
   styleUrls: ['./accept-service.page.scss'],
   standalone: true,
-  imports: [IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonButton, IonLabel, IonIcon, IonActionSheet, IonItem, IonButtons, IonContent, IonHeader, IonTitle, IonMenuButton, IonToolbar, CommonModule, FormsModule, GlobalBackgroundComponent]
+  imports: [IonList, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonButton, IonLabel, IonIcon, IonActionSheet, IonItem, IonButtons, IonContent, IonHeader, IonTitle, IonMenuButton, IonToolbar, CommonModule, FormsModule, GlobalBackgroundComponent]
 })
 export class AcceptServicePage implements OnInit {
   step = 1;
@@ -21,7 +21,6 @@ export class AcceptServicePage implements OnInit {
   jobType!: string;
   userId!: string;
   userName!: string;
-  scheduledDate?: string;
   scheduledDateOnly?: string;
   scheduledTimeOnly?: string;
   additionalInfo!: string;
@@ -32,6 +31,7 @@ export class AcceptServicePage implements OnInit {
   bookingFrequency!: string;
   recurringDay!:string;
   recurringDate!:string;
+  scheduledDates: string[] = [];
 
   editMode = false;
   role: 'cleaner' | 'user' = 'user';
@@ -44,6 +44,7 @@ export class AcceptServicePage implements OnInit {
 
       console.log(state)
       const extrasRaw = state['toDo'] as string;
+      const rawDate = state['scheduledDate'];
       this.jobItems = extrasRaw ? extrasRaw.split(',').map(item => item.trim()) : [];
       this.jobId = state['jobId'];
       this.jobType = state['jobType'];
@@ -52,18 +53,25 @@ export class AcceptServicePage implements OnInit {
       this.price = state['price'];
       this.additionalInfo = state['additionalInfo'];
       this.bookingType = state['jobBookingType'];
-      this.scheduledDate = state['scheduledDate'];
+
+      if (typeof rawDate === 'string') {
+        this.scheduledDates = rawDate.split(',');
+      } else if (Array.isArray(rawDate)) {
+        this.scheduledDates = rawDate;
+      } else {
+        this.scheduledDates = [];
+      }
       this.bookingFrequency = state['bookingFrequency'];
       this.recurringDay = state['recurringDay'];
      this.recurringDate = state['recurringDate']?.toString(); // Ensures it's a string if needed
 
-      if (this.scheduledDate) {
-        const [datePart, timePart] = this.scheduledDate.split('T');
+      if (this.scheduledDates && this.scheduledDates.length > 0) {
+        const [datePart, timePart] = this.scheduledDates[0].split('T');
         this.scheduledDateOnly = datePart;
-      
-        // Optional: format time to HH:MM if needed
-        this.scheduledTimeOnly = timePart?.slice(0, 5); // Gets '10:33'
+        this.scheduledTimeOnly = timePart?.slice(0, 5);
       }
+
+
     }
   }
 

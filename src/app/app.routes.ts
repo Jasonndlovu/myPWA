@@ -102,4 +102,8 @@ export const routes: Routes = [
     path: 'service-history',
     loadComponent: () => import('./Pages/service-history/service-history.page').then( m => m.ServiceHistoryPage)
   },
+  {
+    path: 'find-cleaner',
+    loadComponent: () => import('./Pages/find-cleaner/find-cleaner.page').then( m => m.FindCleanerPage)
+  },
 ];

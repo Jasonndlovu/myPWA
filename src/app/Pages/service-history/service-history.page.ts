@@ -5,8 +5,7 @@ import {
   IonHeader, IonToolbar, IonTitle, 
   IonContent, IonList, IonItem, 
   IonCard, IonCardHeader, IonCardTitle, 
-  IonCardContent, IonLabel, IonBadge, IonSpinner, IonIcon, IonButton, IonRow, IonCol, IonGrid 
-} from '@ionic/angular/standalone';
+  IonCardContent, IonLabel, IonBadge, IonSpinner, IonIcon, IonButton, IonRow, IonCol, IonGrid, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { requestedService } from 'src/services/available-jobs.service';
@@ -18,7 +17,7 @@ import { Firestore, doc, getDoc } from '@angular/fire/firestore';  // For Firest
   templateUrl: './service-history.page.html',
   styleUrls: ['./service-history.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonBackButton, IonButtons, 
     IonGrid, IonCol, IonRow, IonButton, IonIcon, 
     CommonModule,
     IonHeader, IonToolbar, IonTitle, 

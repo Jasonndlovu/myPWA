@@ -1,0 +1,75 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>find-cleaner</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<app-global-background></app-global-background>
+  <div class="flex items-center justify-center h-full p-4">
+    
+    <!-- Finding Card -->
+<div
+  *ngIf="!cleanerFound"
+  class="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg text-center animate-fade-in-up"
+>
+  <ion-icon name="arrow-back" class="text-xl text-gray-600 mb-2"></ion-icon>
+
+  <p class="text-sm font-semibold text-gray-700">Hi, {{user?.displayName}}</p>
+  <!-- <p class="text-xs text-gray-500 mb-4">5.4s loading...</p> -->
+
+  <h2 class="text-lg font-bold mb-2">We're Finding Your Cleaner...</h2>
+
+  <div class="flex justify-center mb-4">
+    <img
+      src="assets/images/cleaning-tools.png"
+      alt="Cleaning Tools"
+      class="w-36 h-38 rounded-full object-cover border"
+    />
+  </div>
+
+  <p class="text-sm text-gray-600">
+    Do not exit or close this app until we have allocated you a cleaner.
+  </p>
+  <p class="text-blue-600 font-semibold mt-2">Almost There!</p>
+
+  <!-- Loading dots animation -->
+  <div class="mt-6 flex justify-center space-x-1">
+    <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+    <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+    <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+  </div>
+</div>
+
+
+    <!-- Cleaner Found Card -->
+    <div
+      *ngIf="cleanerFound"
+      class="bg-white w-full max-w-md p-6 rounded-2xl shadow-lg text-center animate-fade-in-up"
+    >
+      
+      <ion-icon name="arrow-back" class="text-xl text-gray-600 mb-2"></ion-icon>
+
+      <p class="text-sm font-semibold text-gray-700">Hi, {{user?.displayName}}</p>
+      <!-- <p class="text-xs text-gray-500 mb-4">5.4s loading...</p> -->
+
+      <h2 class="text-lg font-bold mb-4">We Found You A Cleaner...</h2>
+
+      <img
+        src={{cleaner?.photoURL}}
+        alt="Cleaner"
+        class="mx-auto w-36 h-36 rounded-full object-cover border-4 border-gray-200"
+      />
+
+      <h3 class="text-lg font-semibold mt-4">{{cleaner?.displayName}}</h3>
+      <p class="text-yellow-500 mt-1">⭐ 4.9 <span class="text-gray-500">(90 reviews)</span></p>
+
+      <p class="text-sm text-gray-600 mt-4">
+        Click “Proceed” below and your booking will be secured
+      </p>
+
+      <ion-button expand="block" class="mt-6 w-full" fill="solid" color="primary">
+        Proceed
+      </ion-button>
+    </div>
+
+  </div>

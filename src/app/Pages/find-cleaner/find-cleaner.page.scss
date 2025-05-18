@@ -1,0 +1,79 @@
+.onboarding-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    color: #333;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 50px;
+    font-weight: bold;
+  }
+
+  .center-image,
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .profile-image {
+    border: 3px solid #eee;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 10px;
+  }
+
+  .almost {
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 5px;
+  }
+
+  .cleaner-name {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .rating {
+    color: #fbb034;
+    font-size: 1rem;
+
+    .reviews {
+      color: #666;
+      font-size: 0.85rem;
+    }
+  }
+
+  .proceed-button {
+    margin-top: 15px;
+    --background: #007bff;
+    --border-radius: 12px;
+    --color: white;
+    font-weight: bold;
+  }
+}

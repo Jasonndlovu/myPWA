@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, orderBy, query, collectionData, where, getDocs, getDoc, doc, Timestamp, updateDoc, setDoc, limit } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, orderBy, query, collectionData, where, getDocs, getDoc, doc, Timestamp, updateDoc, setDoc, limit, writeBatch } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { from, map, Observable, of, switchMap } from 'rxjs';
 import { firstValueFrom } from 'rxjs'; // Add this import
@@ -40,6 +40,7 @@ export class ChatService {
       receiverImage: receiverImage || 'assets/default-avatar.png',
       timestamp: timestamp,
       participants: [user.uid, receiverId],
+      readBy: [senderId],
     };
   
     // 1. Add the message to the messages subcollection
@@ -157,6 +158,37 @@ export class ChatService {
       return [];
     }
   }
+
+async markMessagesAsRead(chatId: string, userId: string) {
+  const messagesRef = collection(this.firestore, `chats/${chatId}/messages`);
+  const q = query(messagesRef, where('readBy', 'not-in', [userId]));
+
+  const snapshot = await getDocs(q);
+  const batch = writeBatch(this.firestore); // <-- This is the correct way
+
+  snapshot.forEach((docSnap) => {
+    const docRef = doc(this.firestore, `chats/${chatId}/messages/${docSnap.id}`);
+    batch.update(docRef, {
+      readBy: [...(docSnap.data()['readBy'] || []), userId]
+    });
+  });
+
+  await batch.commit();
+}
+
+
+listenToUnreadMessages(userId: string): Observable<number> {
+  const messagesQuery = query(
+    collectionGroup(this.firestore, 'messages'),
+    where('participants', 'array-contains', userId),
+    where('readBy', 'not-in', [userId])
+  );
+
+  return collectionData(messagesQuery).pipe(
+    map(messages => messages.length) // Total unread messages
+  );
+}
+
   
 
 

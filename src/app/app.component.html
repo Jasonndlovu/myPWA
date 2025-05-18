@@ -1,20 +1,46 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>{{ user?.displayName || 'Guest' }}</ion-list-header>
-          <ion-note (click)="navigateSettings()">Settings</ion-note>
+      <ion-content class="flex flex-col items-start bg-white rounded-xl shadow-lg p-4 m-4">
 
+        <!-- Close Button (top-right corner) -->
+        <div class="w-full flex justify-between items-center  pl-4">
+          <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-xs font-bold">
+            B
+          </div>
+          <ion-icon name="close" class="text-2xl text-black cursor-pointer" (click)="closeMenu()"> X </ion-icon>
+        </div>
 
-          @for (p of appPages; track p; let i = $index) {
-            <ion-menu-toggle auto-hide="false">
-              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-                <ion-label>{{ p.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          }
-        </ion-list>
+        <!-- Profile Info -->
+        <div class="flex items-center mb-4 p-4">
+          <img src={{user?.photoURL}} alt="Profile" class="rounded-full w-10 h-10 mr-3">
+          <div>
+            <div class="text-sm font-semibold">{{ user?.displayName || 'Guest' }}</div>
+            <div class="text-xs cursor-pointer text-gray-500"  (click)="navigateSettings()">Edit Profile</div>
+            <!-- <div class="text-sm font-semibold">{{ user? || 'Guest' }}</div> -->
+          </div>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="w-full space-y-6 p-4">
+          <div *ngIf="userRole === 'service-provider'" class="text-base font-medium cursor-pointer hover:text-blue-600"><ion-item [routerLink]="['/available-jobs']" lines="none">Offers</ion-item></div>
+          <div class="text-base font-medium cursor-pointer hover:text-blue-600"><ion-item [routerLink]="['/upcoming-jobs']" lines="none">Alerts</ion-item></div>
+          <div class="text-base font-medium cursor-pointer hover:text-blue-600 relative">
+  <ion-item [routerLink]="['/messenger']" lines="none">
+    Messages
+      <span  class="absolute top-0 right-0 transform  bg-red-500 text-white text-xs rounded-full px-1">
+    <!-- {{ unreadCount$ | async }} -->5
+  </span>
+  </ion-item>
+
+</div>
+
+          <div class="text-base font-medium cursor-pointer hover:text-blue-600"><ion-item [routerLink]="['/service-history']" lines="none">Service History</ion-item></div>
+          <!-- <div class="text-base font-medium cursor-pointer hover:text-blue-600"><ion-item [routerLink]="['/offers']" ...></ion-item>App Settings</div> -->
+          <!-- <div class="text-base font-medium cursor-pointer hover:text-blue-600"><ion-item [routerLink]="['/offers']" ...></ion-item>Switch Accounts</div> -->
+          <div class="text-base font-medium cursor-pointer hover:text-red-500"><ion-item (click)="logout()" lines="none">Log out</ion-item> </div>
+        </div>
+        
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

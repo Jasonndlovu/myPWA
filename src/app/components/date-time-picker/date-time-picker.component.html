@@ -1,1 +1,85 @@
-<ion-datetime value="2022-04-21T00:00:00" min="2025-04-01T00:00:00" max="2025-05-31T23:59:59"></ion-datetime>
+<div class="w-full h-full flex items-center justify-center bg-gray-100">
+  <div class="bg-white p-6 rounded-2xl shadow-lg w-[90%] max-w-md">
+    <!-- Header -->
+    <div class="text-left mb-4">
+      <button class="text-xl mb-2" (click)="close()">←</button>
+      <h2 class="text-lg font-bold">Your Calendar</h2>
+      <p class="text-sm text-gray-500">Choose once-off or recurring</p>
+    </div>
+
+    <!-- Toggle -->
+    <div class="flex mb-4 gap-4">
+      <button
+        class="flex-1 py-1 rounded-full text-sm"
+        [ngClass]="onceOff ? 'bg-blue-600 text-white' : 'bg-gray-200'"
+        (click)="onceOff = true"
+      >
+        Once-off
+      </button>
+      <button
+        class="flex-1 py-1 rounded-full text-sm"
+        [ngClass]="!onceOff ? 'bg-blue-600 text-white' : 'bg-gray-200'"
+        (click)="onceOff = false"
+      >
+        Recurring
+      </button>
+    </div>
+
+    <!-- Calendar Month -->
+    <div class="bg-gray-50 p-4 rounded-xl">
+      <p class="text-sm font-semibold mb-2">
+        {{ selectedDate | date: 'MMMM y' }}
+      </p>
+
+      <div class="grid grid-cols-7 text-xs text-gray-500 mb-1">
+        <span *ngFor="let d of ['SUN','MON','TUE','WED','THU','FRI','SAT']">{{ d }}</span>
+      </div>
+
+      <div class="grid grid-cols-7 gap-y-1">
+        <div *ngFor="let _ of [].constructor(firstDayOfMonth)"></div>
+        <div
+          *ngFor="let day of daysInMonth"
+          class="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer transition-all"
+          [ngClass]="{
+            'bg-black text-white': isSelected(day),
+            'hover:bg-black hover:text-white': !isSelected(day),
+            'opacity-20 cursor-not-allowed': !isWeekday(day)
+          }"
+          (click)="toggleDateSelection(day)"
+        >
+          {{ day }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Picker (Simple) -->
+    <div class="mt-4">
+      <p class="text-sm font-medium mb-1">Select Time (6AM to 12PM)</p>
+      <div class="flex space-x-4">
+        <!-- Hour -->
+        <select
+          class="border rounded p-2 flex-1"
+          [(ngModel)]="selectedTime.hour"
+        >
+          <option *ngFor="let h of [6,7,8,9,10,11,12]" [value]="h">{{ h }}</option>
+        </select>
+
+        <!-- Minute -->
+        <select
+          class="border rounded p-2 flex-1"
+          [(ngModel)]="selectedTime.minute"
+        >
+          <option *ngFor="let m of allowedMinutes" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Confirm -->
+    <button
+      class="mt-6 w-full bg-blue-600 text-white py-2 rounded-full font-semibold hover:bg-blue-700 transition"
+      (click)="confirmSelection()"
+    >
+      Confirm Selection
+    </button>
+  </div>
+</div>
